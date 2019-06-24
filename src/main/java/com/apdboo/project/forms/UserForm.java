@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TweetForm {
-    private String tweet;
+public class UserForm {
+    private String email;
+    private String password;
+    private String name;
 }

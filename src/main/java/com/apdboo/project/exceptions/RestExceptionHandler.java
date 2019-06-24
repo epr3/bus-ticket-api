@@ -7,15 +7,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
-import static org.springframework.http.ResponseEntity.status;
 
-@RestControllerAdvice
 @Slf4j
+@RestControllerAdvice
 public class RestExceptionHandler {
-    @ExceptionHandler(value ={InvalidJwtAuthenticationException.class})
+    @ExceptionHandler(TweetNotFoundException.class)
+    public ResponseEntity tweetNotFound(TweetNotFoundException ex, WebRequest request) {
+        log.debug("handling tweet not found...");
+        return new ResponseEntity(null, NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
     public ResponseEntity invalidJwtAuthentication(InvalidJwtAuthenticationException ex, WebRequest request) {
         log.debug("handling InvalidJwtAuthenticationException...");
-        return status(UNAUTHORIZED).build();
+        return new ResponseEntity<>(ex, UNAUTHORIZED);
     }
 }
