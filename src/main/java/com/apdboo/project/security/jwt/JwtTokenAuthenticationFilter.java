@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JwtTokenAuthenticationFilter extends GenericFilterBean {
@@ -22,17 +21,13 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        try {
-            String token = jwtTokenProvider.resolveToken((HttpServletRequest) servletRequest);
-            if (token != null && jwtTokenProvider.validateToken(token)) {
-                Authentication auth = jwtTokenProvider.getAuthentication(token);
+        String token = jwtTokenProvider.resolveToken((HttpServletRequest) servletRequest);
+        if (token != null && jwtTokenProvider.validateToken(token)) {
+            Authentication auth = jwtTokenProvider.getAuthentication(token);
 
-                if (auth != null) {
-                    SecurityContextHolder.getContext().setAuthentication(auth);
-                }
+            if (auth != null) {
+                SecurityContextHolder.getContext().setAuthentication(auth);
             }
-        } catch (InvalidJwtAuthenticationException e) {
-            SecurityContextHolder.clearContext();
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

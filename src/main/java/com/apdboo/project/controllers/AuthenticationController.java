@@ -1,11 +1,10 @@
 package com.apdboo.project.controllers;
 
-import com.apdboo.project.forms.UserForm;
-import com.apdboo.project.models.Tweet;
+import com.apdboo.project.forms.UserRequest;
 import com.apdboo.project.models.User;
 import com.apdboo.project.repositories.UserRepository;
 import com.apdboo.project.security.jwt.JwtTokenProvider;
-import com.apdboo.project.web.AuthenticationRequest;
+import com.apdboo.project.forms.AuthenticationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +23,6 @@ import javax.validation.Valid;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/auth")
@@ -44,8 +40,8 @@ public class AuthenticationController {
     @Autowired
     UserRepository repository;
 
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody AuthenticationRequest data) {
+    @PostMapping("/signin")
+    public ResponseEntity login(@Valid @RequestBody AuthenticationRequest data) {
         try {
             String email = data.getEmail();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, data.getPassword()));
@@ -65,12 +61,12 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@Valid @RequestBody UserForm userForm) {
+    public ResponseEntity register(@Valid @RequestBody UserRequest userRequest) {
         User saved = this.repository.save(
                 User.builder()
-                        .name(userForm.getName())
-                        .email(userForm.getEmail())
-                        .password(passwordEncoder.encode(userForm.getPassword()))
+                        .name(userRequest.getName())
+                        .email(userRequest.getEmail())
+                        .password(passwordEncoder.encode(userRequest.getPassword()))
                         .roles(Collections.singletonList("ROLE_USER"))
                         .build());
         String token = jwtTokenProvider.createToken(
