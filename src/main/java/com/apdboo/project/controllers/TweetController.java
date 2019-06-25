@@ -1,7 +1,7 @@
 package com.apdboo.project.controllers;
 
 import com.apdboo.project.exceptions.TweetNotFoundException;
-import com.apdboo.project.forms.TweetRequest;
+import com.apdboo.project.requests.TweetRequest;
 import com.apdboo.project.models.Tweet;
 import com.apdboo.project.models.User;
 import com.apdboo.project.repositories.TweetRepository;

@@ -1,4 +1,4 @@
-package com.apdboo.project.forms;
+package com.apdboo.project.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,11 +12,14 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRequest {
+public class UserRequest {
     @NotNull(message = "E-mail cannot be missing or empty")
     @Email(message = "E-mail must be a valid format")
     private String email;
 
     @NotNull(message = "Password cannot be missing or empty")
     private String password;
+
+    @NotNull(message = "Name cannot be missing or empty")
+    private String name;
 }

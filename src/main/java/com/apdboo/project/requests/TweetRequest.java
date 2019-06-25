@@ -1,4 +1,4 @@
-package com.apdboo.project.forms;
+package com.apdboo.project.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
