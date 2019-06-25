@@ -16,11 +16,7 @@ import java.util.Map;
 public class ProfileController {
     @GetMapping("/me")
     public ResponseEntity profile() {
-        Map<Object, Object> model = new HashMap<>();
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.put("name", currentUser.getName());
-        model.put("id", currentUser.getId());
-        model.put("email", currentUser.getEmail());
-        return new ResponseEntity<>(model, HttpStatus.OK);
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 }

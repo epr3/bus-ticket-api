@@ -73,7 +73,6 @@ public class AuthenticationController {
     public ResponseEntity register(@Valid @RequestBody UserRequest userRequest) {
         User saved = this.repository.save(
                 User.builder()
-                        .name(userRequest.getName())
                         .email(userRequest.getEmail())
                         .password(passwordEncoder.encode(userRequest.getPassword()))
                         .roles(Collections.singletonList("ROLE_USER"))

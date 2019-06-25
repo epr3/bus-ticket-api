@@ -17,9 +17,9 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 @Slf4j
 @RestControllerAdvice
 public class RestExceptionHandler {
-    @ExceptionHandler(TweetNotFoundException.class)
-    public ResponseEntity tweetNotFound(TweetNotFoundException ex, WebRequest request) {
-        log.debug("handling tweet not found...");
+    @ExceptionHandler(CityNotFoundException.class)
+    public ResponseEntity cityNotFound(CityNotFoundException ex, WebRequest request) {
+        log.debug("handling city not found...");
         return new ResponseEntity(null, NOT_FOUND);
     }
 

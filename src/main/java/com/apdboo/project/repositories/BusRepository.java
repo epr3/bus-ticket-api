@@ -1,9 +1,9 @@
 package com.apdboo.project.repositories;
 
-import com.apdboo.project.models.Tweet;
+import com.apdboo.project.models.Bus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TweetRepository extends JpaRepository<Tweet, Long> {
+public interface BusRepository extends JpaRepository<Bus, Long> {
 }
