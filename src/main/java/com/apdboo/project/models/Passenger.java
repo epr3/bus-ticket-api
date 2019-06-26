@@ -28,6 +28,9 @@ public class Passenger {
     @Column
     private String telephone;
 
+    @Column(insertable = false, updatable = false)
+    private Long user_id;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ToString.Exclude

@@ -20,6 +20,9 @@ public class Ticket implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @Column(insertable = false, updatable = false)
+    private Long passenger_id;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "passenger_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -38,7 +41,7 @@ public class Ticket implements Serializable {
     @Column
     @NotEmpty
     @Temporal(TemporalType.DATE)
-    private Date ticket_data;
+    private Date ticket_date;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "bus_id")
@@ -60,5 +63,14 @@ public class Ticket implements Serializable {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Interval interval;
+
+    @Column(insertable = false, updatable = false)
+    private Long bus_id;
+
+    @Column(insertable = false, updatable = false)
+    private Long route_id;
+
+    @Column(insertable = false, updatable = false)
+    private Long interval_id;
 
 }

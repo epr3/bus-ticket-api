@@ -1,5 +1,7 @@
 package com.apdboo.project.controllers;
 
+import com.apdboo.project.models.Passenger;
+import com.apdboo.project.repositories.PassengerRepository;
 import com.apdboo.project.requests.UserRequest;
 import com.apdboo.project.models.User;
 import com.apdboo.project.repositories.UserRepository;
@@ -40,7 +42,10 @@ public class AuthenticationController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UserRepository repository;
+    UserRepository userRepository;
+
+    @Autowired
+    PassengerRepository passengerRepository;
 
     private void authenticate(String username, String password) {
         Objects.requireNonNull(username);
@@ -58,7 +63,7 @@ public class AuthenticationController {
         authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 
         // Reload password post-security so we can generate the token
-        final String token = jwtTokenProvider.createToken(authenticationRequest.getEmail(), this.repository.findByEmail(authenticationRequest.getEmail())
+        final String token = jwtTokenProvider.createToken(authenticationRequest.getEmail(), this.userRepository.findByEmail(authenticationRequest.getEmail())
                 .orElseThrow(
                         () -> new UsernameNotFoundException("Email " + authenticationRequest.getEmail() + " not found.")).getRoles());
 
@@ -71,20 +76,29 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity register(@Valid @RequestBody UserRequest userRequest) {
-        User saved = this.repository.save(
+        User user = this.userRepository.save(
                 User.builder()
                         .email(userRequest.getEmail())
                         .password(passwordEncoder.encode(userRequest.getPassword()))
-                        .roles(Collections.singletonList("ROLE_USER"))
+                        .roles(Collections.singletonList("PASSENGER"))
                         .build());
+        this.passengerRepository.save(
+                Passenger.builder()
+                        .name(userRequest.getName())
+                        .surname(userRequest
+                                .getSurname())
+                        .telephone(userRequest.getTelephone())
+                        .user(user)
+                        .build()
+        );
         String token = jwtTokenProvider.createToken(
-                saved.getEmail(),
-                this.repository.findByEmail(saved.getEmail())
+                user.getEmail(),
+                this.userRepository.findByEmail(user.getEmail())
                         .orElseThrow(
-                                () -> new UsernameNotFoundException("Email " + saved.getEmail() + " not found.")).getRoles()
+                                () -> new UsernameNotFoundException("Email " + user.getEmail() + " not found.")).getRoles()
         );
         Map<Object, Object> model = new HashMap<>();
-        model.put("email", saved.getEmail());
+        model.put("email", user.getEmail());
         model.put("token", token);
         return new ResponseEntity<>(model, HttpStatus.OK);
     }

@@ -26,4 +26,12 @@ public class UserRequest {
     @NotBlank(message = "Name cannot be blank!")
     @NotNull(message = "Name cannot be missing or empty")
     private String name;
+
+    @NotBlank(message = "Surname cannot be blank!")
+    @NotNull(message = "Surname cannot be missing or empty")
+    private String surname;
+
+    @NotBlank(message = "Telephone cannot be blank!")
+    @NotNull(message = "Telephone cannot be missing or empty")
+    private String telephone;
 }

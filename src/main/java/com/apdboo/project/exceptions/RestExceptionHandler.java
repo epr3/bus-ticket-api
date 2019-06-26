@@ -17,10 +17,19 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 @Slf4j
 @RestControllerAdvice
 public class RestExceptionHandler {
-    @ExceptionHandler(CityNotFoundException.class)
-    public ResponseEntity cityNotFound(CityNotFoundException ex, WebRequest request) {
-        log.debug("handling city not found...");
-        return new ResponseEntity(null, NOT_FOUND);
+    @ExceptionHandler({
+            CityNotFoundException.class,
+            BusNotFoundException.class,
+            IntervalNotFoundException.class,
+            RouteNotFoundException.class,
+            TicketNotFoundException.class,
+            AmenityNotFoundException.class
+    })
+    public ResponseEntity notFound(RuntimeException ex, WebRequest request) {
+        log.debug("handling not found exception...");
+        Map<Object, Object> model = new HashMap<>();
+        model.put("message",ex.getMessage());
+        return new ResponseEntity<>(model, NOT_FOUND);
     }
 
     @ExceptionHandler(InvalidJwtAuthenticationException.class)

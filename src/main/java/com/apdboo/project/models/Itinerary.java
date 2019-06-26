@@ -7,12 +7,12 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Data
-@Table(name="buses_routes_intervals")
+@Table(name="itineraries")
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BusRouteInteval {
+public class Itinerary {
     @Id
     @GeneratedValue
     private Long id;

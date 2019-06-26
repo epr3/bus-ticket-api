@@ -22,7 +22,7 @@ public class Bus {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JsonIgnore
-    private List<BusRouteInteval> busRouteIntervals;
+    private List<Itinerary> itineraries;
 
     @NotEmpty
     @Column

@@ -45,6 +45,5 @@ public class Route {
     @OneToMany(mappedBy = "route")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JsonIgnore
-    private List<BusRouteInteval> busRouteIntervals;
+    private List<Itinerary> busRouteIntervals;
 }
