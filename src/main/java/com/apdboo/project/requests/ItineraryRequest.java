@@ -6,25 +6,20 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TicketRequest {
-    @NotBlank(message = "Ticket date cannot be blank!")
-    @NotNull(message = "Ticket date cannot be missing or empty")
-    private Date ticket_date;
-
+public class ItineraryRequest {
     @NotBlank(message = "Bus cannot be blank!")
     @NotNull(message = "Bus cannot be missing or empty")
-    private Long bus_id;
+    private Long busId;
 
     @NotBlank(message = "Route cannot be blank!")
     @NotNull(message = "Route cannot be missing or empty")
-    private Long route_id;
+    private Long routeId;
 
     @NotBlank(message = "Interval cannot be blank!")
     @NotNull(message = "Interval cannot be missing or empty")
-    private Long interval_id;
+    private Long intervalId;
 }

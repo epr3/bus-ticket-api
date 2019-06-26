@@ -2,11 +2,9 @@ package com.apdboo.project.config;
 
 import com.apdboo.project.security.CustomUserDetailsService;
 import com.apdboo.project.security.jwt.JwtAuthenticationEntryPoint;
-import com.apdboo.project.security.jwt.JwtSecurityConfigurer;
 import com.apdboo.project.security.jwt.JwtTokenAuthenticationFilter;
 import com.apdboo.project.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -63,6 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
+
+                .cors().disable()
 
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 

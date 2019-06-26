@@ -23,7 +23,8 @@ public class RestExceptionHandler {
             IntervalNotFoundException.class,
             RouteNotFoundException.class,
             TicketNotFoundException.class,
-            AmenityNotFoundException.class
+            AmenityNotFoundException.class,
+            ItineraryNotFoundException.class
     })
     public ResponseEntity notFound(RuntimeException ex, WebRequest request) {
         log.debug("handling not found exception...");

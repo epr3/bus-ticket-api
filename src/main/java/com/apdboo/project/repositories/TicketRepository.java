@@ -14,5 +14,5 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     @Query("SELECT ticket FROM Ticket ticket WHERE ticket.passenger_id = :passengerId")
-    List<Ticket> getTicketsByPassengerId(@Param("userId") Long passengerId);
+    List<Ticket> getTicketsByPassengerId(@Param("passengerId") Long passengerId);
 }
