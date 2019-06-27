@@ -49,6 +49,6 @@ public class AmenityServiceImpl implements AmenityService {
 
     @Override
     public List<Amenity> getAmenities() {
-        return null;
+        return this.amenityRepository.findAll();
     }
 }

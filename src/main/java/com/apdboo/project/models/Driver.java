@@ -7,15 +7,21 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-@Table(name="passengers")
+@Table(name = "drivers")
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Passenger {
+public class Driver {
     @Id
     @GeneratedValue
     private Long id;
+
+    @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    private Bus bus;
 
     @NotEmpty
     @Column
@@ -24,18 +30,4 @@ public class Passenger {
     @NotEmpty
     @Column
     private String surname;
-
-    @NotEmpty
-    @Column
-    private String telephone;
-
-    @Column(insertable = false, updatable = false)
-    private Long user_id;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ToString.Exclude
-    @JsonIgnore
-    @EqualsAndHashCode.Exclude
-    private User user;
 }

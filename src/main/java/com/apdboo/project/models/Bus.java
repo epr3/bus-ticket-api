@@ -36,6 +36,12 @@ public class Bus {
     @Column
     private String busModel;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bus_id", referencedColumnName = "id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Driver driver;
+
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,

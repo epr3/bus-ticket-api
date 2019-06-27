@@ -1,10 +1,7 @@
 package com.apdboo.project.controllers;
 
-import com.apdboo.project.requests.PassengerRequest;
-import com.apdboo.project.models.User;
 import com.apdboo.project.requests.AuthenticationRequest;
 import com.apdboo.project.security.jwt.JwtTokenProvider;
-import com.apdboo.project.services.PassengerService;
 import com.apdboo.project.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,8 +30,6 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PassengerService passengerService;
 
     private void authenticate(String username, String password) {
         Objects.requireNonNull(username);
@@ -58,20 +52,6 @@ public class AuthenticationController {
         // Return the token
         Map<Object, Object> model = new HashMap<>();
         model.put("email", authenticationRequest.getEmail());
-        model.put("token", token);
-        return new ResponseEntity<>(model, HttpStatus.OK);
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity register(@Valid @RequestBody PassengerRequest passengerRequest) {
-        User user = this.userService.createUser(passengerRequest);
-        this.passengerService.createPassenger(passengerRequest);
-        String token = jwtTokenProvider.createToken(
-                user.getEmail(),
-                this.userService.getUserByEmail(passengerRequest.getEmail()).getRoles()
-        );
-        Map<Object, Object> model = new HashMap<>();
-        model.put("email", user.getEmail());
         model.put("token", token);
         return new ResponseEntity<>(model, HttpStatus.OK);
     }

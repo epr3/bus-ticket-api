@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.Date;
 
 @Data
 @Table(name="intervals")
@@ -22,12 +21,10 @@ public class Interval {
 
     @NotEmpty
     @Column
-    @Temporal(TemporalType.TIME)
-    private Date intervalStart;
+    private String intervalStart;
 
     @NotEmpty
     @Column
-    @Temporal(TemporalType.TIME)
-    private Date intervalEnd;
+    private String intervalEnd;
 
 }

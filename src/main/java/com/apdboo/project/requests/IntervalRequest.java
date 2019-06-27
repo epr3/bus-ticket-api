@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -14,9 +13,9 @@ import java.util.Date;
 public class IntervalRequest {
     @NotBlank(message = "Start interval cannot be blank!")
     @NotNull(message = "Start interval cannot be missing or empty")
-    private Date intervalStart;
+    private String intervalStart;
 
     @NotBlank(message = "End interval cannot be blank!")
     @NotNull(message = "End interval cannot be missing or empty")
-    private Date intervalEnd;
+    private String intervalEnd;
 }

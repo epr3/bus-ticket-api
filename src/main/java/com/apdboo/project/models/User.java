@@ -30,11 +30,6 @@ public class User implements UserDetails {
     @NotEmpty
     private String password;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Passenger passenger;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     @ToString.Exclude

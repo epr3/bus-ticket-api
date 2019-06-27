@@ -3,8 +3,10 @@ package com.apdboo.project.services;
 import com.apdboo.project.exceptions.BusNotFoundException;
 import com.apdboo.project.models.Amenity;
 import com.apdboo.project.models.Bus;
+import com.apdboo.project.models.Driver;
 import com.apdboo.project.repositories.AmenityRepository;
 import com.apdboo.project.repositories.BusRepository;
+import com.apdboo.project.repositories.DriverRepository;
 import com.apdboo.project.requests.BusRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,14 +21,19 @@ public class BusServiceImpl implements BusService {
     @Autowired
     private BusRepository busRepository;
 
+    @Autowired
+    private DriverRepository driverRepository;
+
     @Override
     public Bus createBus(BusRequest busRequest) {
         List<Amenity> amenities = this.amenityRepository.getAmenitiesByIds(busRequest.getAmenities());
+        Driver driver = this.driverRepository.save(Driver.builder().name(busRequest.getName()).surname(busRequest.getSurname()).build());
         return this.busRepository.save(
                 Bus.builder()
                         .plateNo(busRequest.getPlateNo())
                         .busMake(busRequest.getBusModel())
                         .busModel(busRequest.getBusModel())
+                        .driver(driver)
                         .amenities(amenities)
                         .build());
     }

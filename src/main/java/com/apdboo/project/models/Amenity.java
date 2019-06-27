@@ -1,5 +1,6 @@
 package com.apdboo.project.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
-@Table(name = "buses")
+@Table(name = "amenities")
 @Entity
 @Builder
 @NoArgsConstructor
@@ -25,7 +26,6 @@ public class Amenity {
     @Column
     private String icon;
 
-    @NotEmpty
     @Column
     private Float priceModifier;
 
@@ -40,5 +40,6 @@ public class Amenity {
             }, mappedBy = "amenities")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private List<Bus> buses;
 }

@@ -1,7 +1,6 @@
 package com.apdboo.project.requests;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +23,14 @@ public class BusRequest {
     @NotBlank(message = "Bus model cannot be blank!")
     @NotNull(message = "Bus model cannot be missing or empty")
     private String busModel;
+
+    @NotBlank(message = "Name cannot be blank!")
+    @NotNull(message = "Name cannot be missing or empty")
+    private String name;
+
+    @NotBlank(message = "Surname cannot be blank!")
+    @NotNull(message = "Surname cannot be missing or empty")
+    private String surname;
 
     private List<Long> amenities;
 }

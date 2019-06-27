@@ -22,7 +22,6 @@ public class RestExceptionHandler {
             BusNotFoundException.class,
             IntervalNotFoundException.class,
             RouteNotFoundException.class,
-            TicketNotFoundException.class,
             AmenityNotFoundException.class,
             ItineraryNotFoundException.class
     })

@@ -19,7 +19,6 @@ public class AmenityRequest {
     @NotNull(message = "Icon cannot be missing or empty")
     private String icon;
 
-    @NotBlank(message = "Price modifier cannot be blank!")
     @NotNull(message = "Price modifier cannot be missing or empty")
     private Float priceModifier;
 
