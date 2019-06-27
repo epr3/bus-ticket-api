@@ -1,5 +1,6 @@
 package com.apdboo.project.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,6 +35,7 @@ public class Passenger {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ToString.Exclude
+    @JsonIgnore
     @EqualsAndHashCode.Exclude
     private User user;
 }

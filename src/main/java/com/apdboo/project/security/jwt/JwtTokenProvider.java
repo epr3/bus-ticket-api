@@ -21,7 +21,7 @@ public class JwtTokenProvider {
 
     private SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    private long validityInMilliseconds = 3600000;
+    private Long validityInMilliseconds = 36000000000L;
 
     @Autowired
     private UserDetailsService userDetailsService;

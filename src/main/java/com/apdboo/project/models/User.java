@@ -32,7 +32,6 @@ public class User implements UserDetails {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @ToString.Exclude
-    @JsonIgnore
     @EqualsAndHashCode.Exclude
     private Passenger passenger;
 

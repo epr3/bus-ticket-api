@@ -21,7 +21,6 @@ public class ProfileController {
     @GetMapping("/me")
     public ResponseEntity profile() {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Passenger passenger = this.repository.getPassengerByUserId(currentUser.getId());
-        return new ResponseEntity<>(passenger, HttpStatus.OK);
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 }

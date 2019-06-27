@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
 
-                .cors().disable()
+                .cors().and()
 
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 
@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 
                 .authorizeRequests()
-
+                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .antMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated();
 
@@ -83,6 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // AuthenticationTokenFilter will ignore the below paths
         web
                 .ignoring()
+                .antMatchers(HttpMethod.OPTIONS, "/**")
                 .antMatchers(
                         HttpMethod.POST,
                         "/auth/**"
