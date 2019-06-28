@@ -31,7 +31,7 @@ public class BusServiceImpl implements BusService {
         return this.busRepository.save(
                 Bus.builder()
                         .plateNo(busRequest.getPlateNo())
-                        .busMake(busRequest.getBusModel())
+                        .busMake(busRequest.getBusMake())
                         .busModel(busRequest.getBusModel())
                         .driver(driver)
                         .amenities(amenities)
